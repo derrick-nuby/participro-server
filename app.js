@@ -9,7 +9,12 @@ const inferenceRoutes = require('./routes/inference.routes');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://participro-ui.vercel.app',
+    /http:\/\/localhost(:\d+)?/
+  ]
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
