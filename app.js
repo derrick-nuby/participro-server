@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swaggerConfig');
 const { errorHandler } = require('./middleware/error.middleware');
 const inferenceRoutes = require('./routes/inference.routes');
 
@@ -20,6 +22,9 @@ app.use(morgan('dev'));
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use('/api/inference', inferenceRoutes);
